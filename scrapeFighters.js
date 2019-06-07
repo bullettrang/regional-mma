@@ -1,6 +1,5 @@
 
 const puppeteer = require('puppeteer');
-const fs = require('fs');
 const REGIONS_URL = 'https://www.tapology.com/regions';
 const hawaiiURL= 'https://www.tapology.com/regions/hawaii';
 const chinaURL ='https://www.tapology.com/regions/china';
@@ -76,19 +75,24 @@ async function getRegionsNames(url) {
       headless: true
   });
   const page = await browser.newPage();
-  await page.goto('https://www.tapology.com/regions',{waitUntil: 'domcontentloaded'});
+  await page.goto(url,{waitUntil: 'domcontentloaded'});
   //const example  = await page.$('.regionIndex');
-  const scrapedData = await page.evaluate(() =>
-  Array.from(document.querySelectorAll('h4'))
-    .map(link => ({
-      title: link.innerText
-    }))
-  )
-  console.log('scrapedData',scrapedData);
+  // const scrapedData = await page.evaluate(() =>
+  // Array.from(document.querySelectorAll('h4'))
+  //   .map(link => ({
+  //     title: link.innerText
+  //   }))
+  // )
+  const imageSrcs = await page.$$eval(".regionRankingPreviewFightersContainer img",imgs => imgs.map(img => img.src));                //wait for element
+  // const imageSrcs = await page.evaluate(()=>{
+  //   Array.from(document.querySelectorAll(".regionRankingPreviewFightersContainer img"))
+  //   .map(img =>({
+  //     src:img.src
+  //   }))
+  // })
+  console.log('scrapedData',imageSrcs);
   await page.close();
   await browser.close();
-  
-  
   })();
 
 }
@@ -116,12 +120,9 @@ async function countryStates() {
       })
     )
     console.log('.regionIndexGroups country states',scrapedData);
-
     //const data = new Uint8Array(Buffer.from(scrapedData));
     await page.close();
     await browser.close();
-    
-    
     })();
   
   }
@@ -130,15 +131,54 @@ async function countryStates() {
 
 
 // Call start         //https://stackoverflow.com/questions/49432579/await-is-only-valid-in-async-function/49432604
-(async() => {
-  console.log('before start');
+// (async() => {
+//   console.log('before start');
 
-  myfighters=  await  getFighterNamesByRegion('poland');
+//   myfighters=  await  getFighterNamesByRegion('poland');
   
-  console.log(myfighters);
+//   console.log(myfighters);
   
-})();
+// })();
 
 
-//getRegionsNames(REGIONS_URL);
+
+async function searchForFighter(name){
+
+  (async()=>{
+    const browser = await puppeteer.launch({
+      headless: true
+  });
+  const page = await browser.newPage();                                                   //go to page and wait for dom to load
+  await page.goto('https://www.tapology.com',{waitUntil: 'domcontentloaded'});
+  await page.type('#siteSearch', name)                                         //type in fighter name
+
+
+  // await page.click('.searchBtn');                                               //click button
+  // await page.waitForNavigation();                                               //wait
+  // console.log('New Page URL:', page.url());                                     //we are at new url
+
+  await page.waitForSelector('#searchSuggest', {visible: true})
+  //await page.click('.star a');                                               //click button
+  const link= await page.$eval('.star > a',el => el.href);
+  console.log(link);
+  await page.goto(link,{waitUntil:'domcontentloaded'});                         //wait for page to load
+  const IMAGE_SELECTOR = '.fighterImg img';
+  const imagelink = await page.$eval(IMAGE_SELECTOR,el=>el.src);                //wait for element
+                                                       //grab image link
+  await page.goto(imagelink,{waitUntil:'domcontentloaded'});                         //wait for image page to load
+  await browser.close();
+  })();
+}
+
+//#searchSuggest
+
+getRegionsNames(hawaiiURL);
+//searchForFighter('Tony Ferguson');
+
+
+
+
+
+
+
 
