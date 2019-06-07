@@ -4,6 +4,7 @@ const REGIONS_URL = 'https://www.tapology.com/regions';
 const hawaiiURL= 'https://www.tapology.com/regions/hawaii';
 const chinaURL ='https://www.tapology.com/regions/china';
 const _ =require('lodash');
+//https://stackoverflow.com/questions/49432579/await-is-only-valid-in-async-function/49432604
 /**
  * 
  * @param {param} SELECTOR string
@@ -16,7 +17,11 @@ const getElementLength = async (SELECTOR)=>{
   return length;
 } 
 
-
+/**
+ * @function getFighterNamesByRegion
+ * @param {string} region - string of region requested
+ * @returns {array}  - returns array of regional fighter names strings 
+ */
 async function getFighterNamesByRegion(region) {
   let url =`https://www.tapology.com/regions/${region}`;
   const browser = await puppeteer.launch();
@@ -33,13 +38,10 @@ async function getFighterNamesByRegion(region) {
   }, LENGTH_SELECTOR_CLASS);
   let fighters=[];
 for (let i = 1; i <= listLength; i++) {
-    // change the index to the next child
     let fighterNameSelector = REGION_RANK_NAME.replace("INDEX", i);
     let fighterName = await page.evaluate((sel) => {
         return document.querySelector(sel).innerText;
       }, fighterNameSelector);
-    // not all users have emails visible 
-    //console.log(fighterName);
       fighters.push(fighterName);
 }
   
@@ -47,13 +49,13 @@ for (let i = 1; i <= listLength; i++) {
   return fighters;
 }
 
+
 /**
- * @params {url} string
- * returns the total regions of Tapology regional page
+ * @function getRegionsNames - scrapes region names from specified region
+ * @returns {array}  - returns array of region name strings 
  */
-
-
-async function getRegionsNames(url) {
+async function getRegionsNames() {
+  let url =`https://www.tapology.com/regions/`;
 (async () => {
 
   const browser = await puppeteer.launch({
@@ -64,7 +66,6 @@ async function getRegionsNames(url) {
   page.on('error', err=> {
     console.log('error happen at the page: ', err);
   });
-  const example  = await page.$('.regionIndex');
   const scrapedRegions = await page.evaluate(() =>
   Array.from(document.querySelectorAll('h4'))
     .map(link => ({
@@ -78,7 +79,11 @@ async function getRegionsNames(url) {
 
 }
 
-//get urls of regional ranked fighters
+/**
+ * @function getRankedRegionalImages - scrapes image srcs of ranked regional fighters
+ * @param {string} region - string of region requested
+ * @returns {array}  - array of image src's
+ */
 async function getRankedRegionalImages(region){
   let url =`https://www.tapology.com/regions/${region}`;
   (async () => {
@@ -98,6 +103,11 @@ async function getRankedRegionalImages(region){
     })();
 }
 
+/**
+ * @function countryStates - scrapes specific region names from tapology regions page
+ * @param {string} region - string of region requested
+ * @returns {array}  - array of region names and href strings
+ */
 async function countryStates() {
   (async () => {
   
@@ -130,23 +140,13 @@ async function countryStates() {
     })();
   
   }
-  
 
-
-
-// Call start         //https://stackoverflow.com/questions/49432579/await-is-only-valid-in-async-function/49432604
-// (async() => {
-//   console.log('before start');
-
-//   myfighters=  await  getFighterNamesByRegion('poland');
-  
-//   console.log(myfighters);
-  
-// })();
-
-
-
-async function searchForFighter(name){
+/**
+ * @function getFighterDetails - function that scrapes fighter profile page for personal details
+ * @param {string} name - string of fighter name requested
+ * @returns {object}  - object of fighter details
+ */
+async function getFighterDetails(name){
   const url = 'https://www.tapology.com';
   (async()=>{
     const browser = await puppeteer.launch({
@@ -174,14 +174,14 @@ async function searchForFighter(name){
   })();
 }
 
-const parseFighterDataFromDOM = async (page)=>{
-  const fighterData = await page.$$eval("#stats > ul > li >span",spans =>spans
-  .filter(span =>{if(span.innerText==='in')return false; else return true;})
-  .map(span=>span.innerText));                //wait for element
-  console.log(getFighterObject(fighterData));
-}
 
+/**
+ * @function getFighterObject - helper function to convert array of fighter details into object with corresponding keys
+ * @param {array} fighterData - array of fighter details such as name, record, weightclass, height, etc
+ * @returns {object}  - object of fighter details
+ */
 const getFighterObject =(fighterData)=>{
+  //TODO SEPERATE record into wins/losses/ties/NC
   const templateKeys = ['name','record','nickname','streak','age','bday','lastFightDate','company','weightClass','weight','team','height','reach','earnings','hometown','currentResidence'];
   return  _.zipObject(templateKeys,fighterData);
   
@@ -189,7 +189,7 @@ const getFighterObject =(fighterData)=>{
 
 //#searchSuggest
 
-searchForFighter('Khabib');
+getFighterDetails('Khabib');
 
 
 
