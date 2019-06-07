@@ -3,7 +3,7 @@ const puppeteer = require('puppeteer');
 const REGIONS_URL = 'https://www.tapology.com/regions';
 const hawaiiURL= 'https://www.tapology.com/regions/hawaii';
 const chinaURL ='https://www.tapology.com/regions/china';
-
+const _ =require('lodash');
 /**
  * 
  * @param {param} SELECTOR string
@@ -21,6 +21,9 @@ async function getFighterNamesByRegion(region) {
   let url =`https://www.tapology.com/regions/${region}`;
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
+  page.on('error', err=> {
+    console.log('error happen at the page: ', err);
+  });
   await page.goto(url);
   const REGION_RANK_NAME ='#content > div.regionRankingsPreview > div.regionRankingPreviewFightersContainer > div:nth-child(INDEX) > div.regionRankingPreviewFighterName > a'
   const LENGTH_SELECTOR_CLASS = 'regionRankingPreviewFighterName';
@@ -48,24 +51,6 @@ for (let i = 1; i <= listLength; i++) {
  * @params {url} string
  * returns the total regions of Tapology regional page
  */
-async function getRegionCount(url){
-  const browser = await puppeteer.launch();
-  const page = await browser.newPage();
-
-  await page.goto(url);
-  const MAX_REGIONS_PER_ROW =5;
-  const REGION_LENGTH_SELECTOR='#content > div.regionIndex > h4';  //.length
-
-  const total_Regions = await page.evaluate(sel=>{
-    return document.querySelectorAll(sel).length
-  },REGION_LENGTH_SELECTOR);
-
-  
-
-  await browser.close();
-  return total_Regions;
-}
-
 
 
 async function getRegionsNames(url) {
@@ -76,25 +61,41 @@ async function getRegionsNames(url) {
   });
   const page = await browser.newPage();
   await page.goto(url,{waitUntil: 'domcontentloaded'});
-  //const example  = await page.$('.regionIndex');
-  // const scrapedData = await page.evaluate(() =>
-  // Array.from(document.querySelectorAll('h4'))
-  //   .map(link => ({
-  //     title: link.innerText
-  //   }))
-  // )
-  const imageSrcs = await page.$$eval(".regionRankingPreviewFightersContainer img",imgs => imgs.map(img => img.src));                //wait for element
-  // const imageSrcs = await page.evaluate(()=>{
-  //   Array.from(document.querySelectorAll(".regionRankingPreviewFightersContainer img"))
-  //   .map(img =>({
-  //     src:img.src
-  //   }))
-  // })
-  console.log('scrapedData',imageSrcs);
+  page.on('error', err=> {
+    console.log('error happen at the page: ', err);
+  });
+  const example  = await page.$('.regionIndex');
+  const scrapedRegions = await page.evaluate(() =>
+  Array.from(document.querySelectorAll('h4'))
+    .map(link => ({
+      title: link.innerText
+    }))
+  )
+  console.log('scrapedData',scrapedRegions);
   await page.close();
   await browser.close();
   })();
 
+}
+
+//get urls of regional ranked fighters
+async function getRankedRegionalImages(region){
+  let url =`https://www.tapology.com/regions/${region}`;
+  (async () => {
+
+    const browser = await puppeteer.launch({
+        headless: true
+    });
+    const page = await browser.newPage();
+    page.on('error', err=> {
+      console.log('error happen at the page: ', err);
+    });
+    await page.goto(url,{waitUntil: 'domcontentloaded'});
+    const imageSrcs = await page.$$eval(".regionRankingPreviewFightersContainer img",imgs => imgs.map(img => img.src));                //wait for element
+    console.log('scrapedData',imageSrcs);
+    await page.close();
+    await browser.close();
+    })();
 }
 
 async function countryStates() {
@@ -105,7 +106,10 @@ async function countryStates() {
     });
     const page = await browser.newPage();
     await page.goto('https://www.tapology.com/regions',{waitUntil: 'domcontentloaded'});
-    //const example  = await page.$('.regionIndex');
+    page.on('error', err=> {
+      console.log('error happen at the page: ', err);
+    });
+
     const scrapedData = await page.evaluate(() =>
     Array.from(document.querySelectorAll('.regionIndexGroups li a'))
       .map(link =>{
@@ -143,37 +147,49 @@ async function countryStates() {
 
 
 async function searchForFighter(name){
-
+  const url = 'https://www.tapology.com';
   (async()=>{
     const browser = await puppeteer.launch({
       headless: true
   });
-  const page = await browser.newPage();                                                   //go to page and wait for dom to load
-  await page.goto('https://www.tapology.com',{waitUntil: 'domcontentloaded'});
-  await page.type('#siteSearch', name)                                         //type in fighter name
+  try{
+    const page = await browser.newPage();                                                   //go to page and wait for dom to load
+    await page.goto(url,{waitUntil: 'domcontentloaded'});
+    await page.type('#siteSearch', name)                                         //type in fighter name
+    await page.waitForSelector('#searchSuggest', {visible: true})
+    const link= await page.$eval('.star > a',el => el.href);
+    await page.goto(link,{waitUntil:'domcontentloaded'});                         //wait for fighter page to load
+    const fighterData = await page.$$eval("#stats > ul > li >span",spans =>spans
+                                                                            .filter(span =>{if(span.innerText==='in')return false; else return true;})
+                                                                            .map(span=>span.innerText));                //wait for element
+                                                                            console.log(getFighterObject(fighterData));
+   await browser.close();                                                                            
+  }
+  catch(e){
+    console.log(e);
+  }
 
+  //console.log(fighterData);
 
-  // await page.click('.searchBtn');                                               //click button
-  // await page.waitForNavigation();                                               //wait
-  // console.log('New Page URL:', page.url());                                     //we are at new url
-
-  await page.waitForSelector('#searchSuggest', {visible: true})
-  //await page.click('.star a');                                               //click button
-  const link= await page.$eval('.star > a',el => el.href);
-  console.log(link);
-  await page.goto(link,{waitUntil:'domcontentloaded'});                         //wait for page to load
-  const IMAGE_SELECTOR = '.fighterImg img';
-  const imagelink = await page.$eval(IMAGE_SELECTOR,el=>el.src);                //wait for element
-                                                       //grab image link
-  await page.goto(imagelink,{waitUntil:'domcontentloaded'});                         //wait for image page to load
-  await browser.close();
   })();
+}
+
+const parseFighterDataFromDOM = async (page)=>{
+  const fighterData = await page.$$eval("#stats > ul > li >span",spans =>spans
+  .filter(span =>{if(span.innerText==='in')return false; else return true;})
+  .map(span=>span.innerText));                //wait for element
+  console.log(getFighterObject(fighterData));
+}
+
+const getFighterObject =(fighterData)=>{
+  const templateKeys = ['name','record','nickname','streak','age','bday','lastFightDate','company','weightClass','weight','team','height','reach','earnings','hometown','currentResidence'];
+  return  _.zipObject(templateKeys,fighterData);
+  
 }
 
 //#searchSuggest
 
-getRegionsNames(hawaiiURL);
-//searchForFighter('Tony Ferguson');
+searchForFighter('Khabib');
 
 
 
