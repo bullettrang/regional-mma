@@ -24364,6 +24364,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _src_CustomMap__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../src/CustomMap */ "./src/CustomMap.js");
 /* harmony import */ var _src_App__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../src/App */ "./src/App.js");
+/* harmony import */ var _src_App__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_src_App__WEBPACK_IMPORTED_MODULE_3__);
 var _jsxFileName = "/Users/briantrang/Documents/tapology/frontend/regional-mma/pages/index.js";
 
  // import Map from './Map';
@@ -24371,27 +24372,28 @@ var _jsxFileName = "/Users/briantrang/Documents/tapology/frontend/regional-mma/p
 
 
 
-function App() {
+function Home() {
   return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-    className: "jsx-2192250368" + " " + "App",
+    className: "jsx-2245676088" + " " + "App",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 8
     },
     __self: this
-  }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_src_CustomMap__WEBPACK_IMPORTED_MODULE_2__["default"], {
+  }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("p", {
+    className: "jsx-2245676088",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 9
     },
     __self: this
-  }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(styled_jsx_style__WEBPACK_IMPORTED_MODULE_0___default.a, {
-    id: "2192250368",
+  }, "HOME"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(styled_jsx_style__WEBPACK_IMPORTED_MODULE_0___default.a, {
+    id: "2245676088",
     __self: this
-  }, ".App.jsx-2192250368{padding:1em;box-sizing:inherit;}\n/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9icmlhbnRyYW5nL0RvY3VtZW50cy90YXBvbG9neS9mcm9udGVuZC9yZWdpb25hbC1tbWEvcGFnZXMvaW5kZXguanMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBU2tCLEFBR29CLFlBQ1EsbUJBQ3JCIiwiZmlsZSI6Ii9Vc2Vycy9icmlhbnRyYW5nL0RvY3VtZW50cy90YXBvbG9neS9mcm9udGVuZC9yZWdpb25hbC1tbWEvcGFnZXMvaW5kZXguanMiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgUmVhY3QgZnJvbSAncmVhY3QnO1xuLy8gaW1wb3J0IE1hcCBmcm9tICcuL01hcCc7XG5pbXBvcnQgQ3VzdG9tTWFwIGZyb20gJy4uL3NyYy9DdXN0b21NYXAnO1xuaW1wb3J0ICcuLi9zcmMvQXBwJztcblxuZnVuY3Rpb24gQXBwKCkge1xuICByZXR1cm4gKFxuICAgIDxkaXYgY2xhc3NOYW1lPVwiQXBwXCI+IFxuICAgICAgPEN1c3RvbU1hcC8+XG4gICAgICA8c3R5bGUganN4PntgXG4gICAgICAuQXBwe1xuICAgICAgICBwYWRkaW5nOjFlbTtcbiAgICAgICAgYm94LXNpemluZzogaW5oZXJpdDtcbiAgICAgIH1cbiAgICAgIGB9PC9zdHlsZT5cbiAgICA8L2Rpdj5cbiAgKTtcbn1cblxuZXhwb3J0IGRlZmF1bHQgQXBwOyJdfQ== */\n/*@ sourceURL=/Users/briantrang/Documents/tapology/frontend/regional-mma/pages/index.js */"));
+  }, ".App.jsx-2245676088{padding:1em;box-sizing:inherit;text-align:center;}\n/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9icmlhbnRyYW5nL0RvY3VtZW50cy90YXBvbG9neS9mcm9udGVuZC9yZWdpb25hbC1tbWEvcGFnZXMvaW5kZXguanMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBU2tCLEFBR3NCLFlBQ1EsbUJBQ0Ysa0JBQ25CIiwiZmlsZSI6Ii9Vc2Vycy9icmlhbnRyYW5nL0RvY3VtZW50cy90YXBvbG9neS9mcm9udGVuZC9yZWdpb25hbC1tbWEvcGFnZXMvaW5kZXguanMiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgUmVhY3QgZnJvbSAncmVhY3QnO1xuLy8gaW1wb3J0IE1hcCBmcm9tICcuL01hcCc7XG5pbXBvcnQgQ3VzdG9tTWFwIGZyb20gJy4uL3NyYy9DdXN0b21NYXAnO1xuaW1wb3J0ICcuLi9zcmMvQXBwJztcblxuZnVuY3Rpb24gSG9tZSgpIHtcbiAgcmV0dXJuIChcbiAgICA8ZGl2IGNsYXNzTmFtZT1cIkFwcFwiPiBcbiAgICAgIDxwPkhPTUU8L3A+XG4gICAgICA8c3R5bGUganN4PntgXG4gICAgICAgIC5BcHB7XG4gICAgICAgICAgcGFkZGluZzoxZW07XG4gICAgICAgICAgYm94LXNpemluZzogaW5oZXJpdDtcbiAgICAgICAgICB0ZXh0LWFsaWduOmNlbnRlcjtcbiAgICAgICAgfVxuICAgICAgICBgfVxuICAgICAgPC9zdHlsZT5cbiAgICA8L2Rpdj5cbiAgKTtcbn1cblxuZXhwb3J0IGRlZmF1bHQgSG9tZTsiXX0= */\n/*@ sourceURL=/Users/briantrang/Documents/tapology/frontend/regional-mma/pages/index.js */"));
 }
 
-/* harmony default export */ __webpack_exports__["default"] = (App);
+/* harmony default export */ __webpack_exports__["default"] = (Home);
 
 /***/ }),
 
@@ -24399,37 +24401,20 @@ function App() {
 /*!********************!*\
   !*** ./src/App.js ***!
   \********************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/*! no static exports found */
+/***/ (function(module, exports) {
 
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _CustomMap__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CustomMap */ "./src/CustomMap.js");
-var _jsxFileName = "/Users/briantrang/Documents/tapology/frontend/regional-mma/src/App.js";
- // import Map from './Map';
-
- // import './App.css';
-
-function App() {
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "App",
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 8
-    },
-    __self: this
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_CustomMap__WEBPACK_IMPORTED_MODULE_1__["default"], {
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 9
-    },
-    __self: this
-  }));
-}
-
-/* harmony default export */ __webpack_exports__["default"] = (App);
+// import React from 'react';
+// // import Map from './Map';
+// // import './App.css';
+// function App() {
+//   return (
+//     <div className="App"> 
+//       <CustomMap/>
+//     </div>
+//   );
+// }
+// export default App;
 
 /***/ }),
 
@@ -24498,20 +24483,7 @@ class CustomMap extends react__WEBPACK_IMPORTED_MODULE_1__["Component"] {
         lineNumber: 42
       },
       __self: this
-    }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_3___default.a, {
-      href: "/about",
-      __source: {
-        fileName: _jsxFileName,
-        lineNumber: 43
-      },
-      __self: this
-    }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("a", {
-      __source: {
-        fileName: _jsxFileName,
-        lineNumber: 44
-      },
-      __self: this
-    }, "About Page")), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_simple_maps__WEBPACK_IMPORTED_MODULE_5__["ComposableMap"], {
+    }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_simple_maps__WEBPACK_IMPORTED_MODULE_5__["ComposableMap"], {
       projectionConfig: {
         scale: 1085,
         rotation: [0, 0, 0]
@@ -24524,7 +24496,7 @@ class CustomMap extends react__WEBPACK_IMPORTED_MODULE_1__["Component"] {
       },
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 46
+        lineNumber: 43
       },
       __self: this
     }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_simple_maps__WEBPACK_IMPORTED_MODULE_5__["ZoomableGroup"], {
@@ -24532,7 +24504,7 @@ class CustomMap extends react__WEBPACK_IMPORTED_MODULE_1__["Component"] {
       disablePanning: true,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 58
+        lineNumber: 55
       },
       __self: this
     }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_simple_maps__WEBPACK_IMPORTED_MODULE_5__["Geographies"], {
@@ -24540,28 +24512,27 @@ class CustomMap extends react__WEBPACK_IMPORTED_MODULE_1__["Component"] {
       disableOptimization: true,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 59
+        lineNumber: 56
       },
       __self: this
     }, (geographies, projection) => geographies.map((geography, i) => react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_3___default.a, {
       href: `/state?state=${geography.properties.name}`,
+      key: geography.properties.name,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 65
+        lineNumber: 62
       },
       __self: this
     }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("a", {
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 66
+        lineNumber: 64
       },
       __self: this
     }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_simple_maps__WEBPACK_IMPORTED_MODULE_5__["Geography"], {
-      key: `${geography.properties.ADM0_A3}-${i}`,
       cacheId: `path-${geography.properties.ADM0_A3}-${i}`,
       round: true,
       name: geography.properties.name,
-      key: geography.properties.name,
       geography: geography,
       projection: projection,
       style: {
@@ -24586,7 +24557,7 @@ class CustomMap extends react__WEBPACK_IMPORTED_MODULE_1__["Component"] {
       },
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 67
+        lineNumber: 65
       },
       __self: this
     }))))))));
@@ -24609,7 +24580,7 @@ module.exports = {"type":"Topology","transform":{"scale":[0.0002727762257239159,
 
 /***/ }),
 
-/***/ 1:
+/***/ 0:
 /*!**********************************************************************************************************************************************************!*\
   !*** multi next-client-pages-loader?page=%2F&absolutePagePath=%2FUsers%2Fbriantrang%2FDocuments%2Ftapology%2Ffrontend%2Fregional-mma%2Fpages%2Findex.js ***!
   \**********************************************************************************************************************************************************/
@@ -24632,5 +24603,5 @@ module.exports = dll_7aff549c98b978433226;
 
 /***/ })
 
-},[[1,"static/runtime/webpack.js"]]]);
+},[[0,"static/runtime/webpack.js"]]]);
 //# sourceMappingURL=index.js.map

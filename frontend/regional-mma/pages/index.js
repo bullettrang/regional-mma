@@ -3,18 +3,20 @@ import React from 'react';
 import CustomMap from '../src/CustomMap';
 import '../src/App';
 
-function App() {
+function Home() {
   return (
     <div className="App"> 
-      <CustomMap/>
+      <p>HOME</p>
       <style jsx>{`
-      .App{
-        padding:1em;
-        box-sizing: inherit;
-      }
-      `}</style>
+        .App{
+          padding:1em;
+          box-sizing: inherit;
+          text-align:center;
+        }
+        `}
+      </style>
     </div>
   );
 }
 
-export default App;
+export default Home;

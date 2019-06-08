@@ -1,14 +1,14 @@
-import React from 'react';
-// import Map from './Map';
-import CustomMap from './CustomMap';
-// import './App.css';
+// import React from 'react';
+// // import Map from './Map';
 
-function App() {
-  return (
-    <div className="App"> 
-      <CustomMap/>
-    </div>
-  );
-}
+// // import './App.css';
 
-export default App;
+// function App() {
+//   return (
+//     <div className="App"> 
+//       <CustomMap/>
+//     </div>
+//   );
+// }
+
+// export default App;
