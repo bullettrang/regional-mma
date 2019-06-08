@@ -1,11 +1,11 @@
 import { withRouter } from 'next/router';
-import Layout from '../components/learn/MyLayout.js';
+
 
 const State = withRouter(props => (
-  <Layout>
+  <div>
     <h1>{props.router.query.state}</h1>
-    <p>This is the blog post content.</p>
-  </Layout>
+    <p>State PAGE.</p>
+  </div>
 ));
 
 export default State;

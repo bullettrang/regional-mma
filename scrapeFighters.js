@@ -3,7 +3,8 @@ const puppeteer = require('puppeteer');
 const REGIONS_URL = 'https://www.tapology.com/regions';
 const hawaiiURL= 'https://www.tapology.com/regions/hawaii';
 const chinaURL ='https://www.tapology.com/regions/china';
-
+const _ =require('lodash');
+//https://stackoverflow.com/questions/49432579/await-is-only-valid-in-async-function/49432604
 /**
  * 
  * @param {param} SELECTOR string
@@ -16,11 +17,18 @@ const getElementLength = async (SELECTOR)=>{
   return length;
 } 
 
-
+/**
+ * @function getFighterNamesByRegion
+ * @param {string} region - string of region requested
+ * @returns {array}  - returns array of regional fighter names strings 
+ */
 async function getFighterNamesByRegion(region) {
   let url =`https://www.tapology.com/regions/${region}`;
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
+  page.on('error', err=> {
+    console.log('error happen at the page: ', err);
+  });
   await page.goto(url);
   const REGION_RANK_NAME ='#content > div.regionRankingsPreview > div.regionRankingPreviewFightersContainer > div:nth-child(INDEX) > div.regionRankingPreviewFighterName > a'
   const LENGTH_SELECTOR_CLASS = 'regionRankingPreviewFighterName';
@@ -30,13 +38,10 @@ async function getFighterNamesByRegion(region) {
   }, LENGTH_SELECTOR_CLASS);
   let fighters=[];
 for (let i = 1; i <= listLength; i++) {
-    // change the index to the next child
     let fighterNameSelector = REGION_RANK_NAME.replace("INDEX", i);
     let fighterName = await page.evaluate((sel) => {
         return document.querySelector(sel).innerText;
       }, fighterNameSelector);
-    // not all users have emails visible 
-    //console.log(fighterName);
       fighters.push(fighterName);
 }
   
@@ -44,31 +49,13 @@ for (let i = 1; i <= listLength; i++) {
   return fighters;
 }
 
+
 /**
- * @params {url} string
- * returns the total regions of Tapology regional page
+ * @function getRegionsNames - scrapes region names from specified region
+ * @returns {array}  - returns array of region name strings 
  */
-async function getRegionCount(url){
-  const browser = await puppeteer.launch();
-  const page = await browser.newPage();
-
-  await page.goto(url);
-  const MAX_REGIONS_PER_ROW =5;
-  const REGION_LENGTH_SELECTOR='#content > div.regionIndex > h4';  //.length
-
-  const total_Regions = await page.evaluate(sel=>{
-    return document.querySelectorAll(sel).length
-  },REGION_LENGTH_SELECTOR);
-
-  
-
-  await browser.close();
-  return total_Regions;
-}
-
-
-
-async function getRegionsNames(url) {
+async function getRegionsNames() {
+  let url =`https://www.tapology.com/regions/`;
 (async () => {
 
   const browser = await puppeteer.launch({
@@ -76,27 +63,51 @@ async function getRegionsNames(url) {
   });
   const page = await browser.newPage();
   await page.goto(url,{waitUntil: 'domcontentloaded'});
-  //const example  = await page.$('.regionIndex');
-  // const scrapedData = await page.evaluate(() =>
-  // Array.from(document.querySelectorAll('h4'))
-  //   .map(link => ({
-  //     title: link.innerText
-  //   }))
-  // )
-  const imageSrcs = await page.$$eval(".regionRankingPreviewFightersContainer img",imgs => imgs.map(img => img.src));                //wait for element
-  // const imageSrcs = await page.evaluate(()=>{
-  //   Array.from(document.querySelectorAll(".regionRankingPreviewFightersContainer img"))
-  //   .map(img =>({
-  //     src:img.src
-  //   }))
-  // })
-  console.log('scrapedData',imageSrcs);
+  page.on('error', err=> {
+    console.log('error happen at the page: ', err);
+  });
+  const scrapedRegions = await page.evaluate(() =>
+  Array.from(document.querySelectorAll('h4'))
+    .map(link => ({
+      title: link.innerText
+    }))
+  )
+  console.log('scrapedData',scrapedRegions);
   await page.close();
   await browser.close();
   })();
 
 }
 
+/**
+ * @function getRankedRegionalImages - scrapes image srcs of ranked regional fighters
+ * @param {string} region - string of region requested
+ * @returns {array}  - array of image src's
+ */
+async function getRankedRegionalImages(region){
+  let url =`https://www.tapology.com/regions/${region}`;
+  (async () => {
+
+    const browser = await puppeteer.launch({
+        headless: true
+    });
+    const page = await browser.newPage();
+    page.on('error', err=> {
+      console.log('error happen at the page: ', err);
+    });
+    await page.goto(url,{waitUntil: 'domcontentloaded'});
+    const imageSrcs = await page.$$eval(".regionRankingPreviewFightersContainer img",imgs => imgs.map(img => img.src));                //wait for element
+    console.log('scrapedData',imageSrcs);
+    await page.close();
+    await browser.close();
+    })();
+}
+
+/**
+ * @function countryStates - scrapes specific region names from tapology regions page
+ * @param {string} region - string of region requested
+ * @returns {array}  - array of region names and href strings
+ */
 async function countryStates() {
   (async () => {
   
@@ -105,7 +116,10 @@ async function countryStates() {
     });
     const page = await browser.newPage();
     await page.goto('https://www.tapology.com/regions',{waitUntil: 'domcontentloaded'});
-    //const example  = await page.$('.regionIndex');
+    page.on('error', err=> {
+      console.log('error happen at the page: ', err);
+    });
+
     const scrapedData = await page.evaluate(() =>
     Array.from(document.querySelectorAll('.regionIndexGroups li a'))
       .map(link =>{
@@ -126,55 +140,104 @@ async function countryStates() {
     })();
   
   }
-  
 
 
+/**
+ * @function getSuggestedSearchLinks - function that gets array
+ * @param {string} name - string of fighter name requested
+ * @returns {array}  - array of suggested fighter href pages
+ */
+async function getSuggestedSearchLinks(name){
+  const url = 'https://www.tapology.com';
 
-// Call start         //https://stackoverflow.com/questions/49432579/await-is-only-valid-in-async-function/49432604
-// (async() => {
-//   console.log('before start');
+  (async()=>{
+        const browser = await puppeteer.launch({
+          headless: true
+      });
 
-//   myfighters=  await  getFighterNamesByRegion('poland');
-  
-//   console.log(myfighters);
-  
-// })();
+      try{
+        const page = await browser.newPage();                                                   //go to page and wait for dom to load
+        await page.goto(url,{waitUntil: 'domcontentloaded'});
+        await page.type('#siteSearch', name)                                         //type in fighter name
+        await page.waitForSelector('#searchSuggest', {visible: true})                 //wait for search suggestons to appear
+        const links= await page.$$eval('#searchSuggest > ul >li >span> a',hrefs => hrefs.map(link=>link.href));
+        console.log(links);
+      // const namesSuggested = links.map(link=>{
+      //   // const hrefToNameRegex= /[^https://www.tapology.com/fightcenter/fighters/\d]\w+/gm;
+      //   // const cleanString = link.match(hrefToNameRegex).join(' ').replace(/-/g,'').replace(/([^ \t]+)/g, function(_, word) { return word[0].toUpperCase().concat(word.substring(1)); });
+      //   return getFighterNameFromHref(link);
+      // })
+      //  console.log(namesSuggested);
+        await browser.close(); 
+      }
+      catch(e){
+        console.log(e);
+      }
+  })();
+}
 
-
-
-async function searchForFighter(name){
-
+/**
+ * @function getFighterDetails - function that scrapes fighter profile page for personal details
+ * @param {string} name - string of fighter name requested
+ * @returns {object}  - object of fighter details
+ */
+async function getFighterDetails(name){
+  const url = 'https://www.tapology.com';
   (async()=>{
     const browser = await puppeteer.launch({
       headless: true
   });
-  const page = await browser.newPage();                                                   //go to page and wait for dom to load
-  await page.goto('https://www.tapology.com',{waitUntil: 'domcontentloaded'});
-  await page.type('#siteSearch', name)                                         //type in fighter name
-
-
-  // await page.click('.searchBtn');                                               //click button
-  // await page.waitForNavigation();                                               //wait
-  // console.log('New Page URL:', page.url());                                     //we are at new url
-
-  await page.waitForSelector('#searchSuggest', {visible: true})
-  //await page.click('.star a');                                               //click button
-  const link= await page.$eval('.star > a',el => el.href);
-  console.log(link);
-  await page.goto(link,{waitUntil:'domcontentloaded'});                         //wait for page to load
-  const IMAGE_SELECTOR = '.fighterImg img';
-  const imagelink = await page.$eval(IMAGE_SELECTOR,el=>el.src);                //wait for element
-                                                       //grab image link
-  await page.goto(imagelink,{waitUntil:'domcontentloaded'});                         //wait for image page to load
-  await browser.close();
+  try{
+    const page = await browser.newPage();                                                   //go to page and wait for dom to load
+    await page.goto(url,{waitUntil: 'domcontentloaded'});
+    await page.type('#siteSearch', name)                                         //type in fighter name
+    await page.waitForSelector('#searchSuggest', {visible: true})                 //wait for search suggestons to appear
+    const link= await page.$eval('.star > a',el => el.href);
+    await page.goto(link,{waitUntil:'domcontentloaded'});                         //wait for fighter page to load
+    const fighterData = await page.$$eval("#stats > ul > li >span",spans =>spans
+                                                                            .filter(span =>{if(span.innerText==='in')return false; else return true;})
+                                                                            .map(span=>span.innerText));                //wait for element
+                                                                            console.log(getFighterObject(fighterData));
+   await browser.close();                                                                            
+  }
+  catch(e){
+    console.log(e);
+  }
   })();
 }
 
+
+/**
+ * @function getFighterObject - helper function to convert array of fighter details into object with corresponding keys
+ * @param {array} fighterData - array of fighter details such as name, record, weightclass, height, etc
+ * @returns {object}  - object of fighter details
+ */
+const getFighterObject =(fighterData)=>{
+  //TODO SEPERATE record into wins/losses/ties/NC
+  const templateKeys = ['name','record','nickname','streak','age','bday','lastFightDate','company','weightClass','weight','team','height','reach','earnings','hometown','currentResidence'];
+  return  _.zipObject(templateKeys,fighterData);
+  
+}
+
+/**
+ * @function getFighterNameFromHref - helper function to parse tapology fighter href for 
+ * @param {string} - href 
+ * @returns {string} fighter name 
+ */
+//const cleanString = link.match(hrefToNameRegex).join(' ').replace(/-/g,'').replace(/([^ \t]+)/g, function(_, word) { return word[0].toUpperCase().concat(word.substring(1)); });
+
+const getFighterNameFromHref=(href)=>{
+  const hrefToNameRegex= /[^https://www.tapology.com/fightcenter/fighters/\d]\w+/gm;
+  const cleanString =  href.match(hrefToNameRegex)
+                            .join(' ')                     //join words at whitespace
+                            .replace(/-/g,'')             //remove '-' and replace with whitespace
+                            .replace(/([^ \t]+)/g, function(_, word) { return word[0].toUpperCase().concat(word.substring(1)); });      //capitalize first of every word
+  return cleanString;
+}
+
+
 //#searchSuggest
-
-getRegionsNames(hawaiiURL);
-//searchForFighter('Tony Ferguson');
-
+getSuggestedSearchLinks('Da Un Jung');
 
 
 
