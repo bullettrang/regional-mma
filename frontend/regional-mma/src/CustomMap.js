@@ -40,9 +40,6 @@ class CustomMap extends Component {
   render() {
     return (
       <div style={wrapperStyles}>
-        <Link href="/about">
-          <a>About Page</a>
-        </Link>
         <ComposableMap
           projectionConfig={{
             scale: 1085,
@@ -62,14 +59,13 @@ class CustomMap extends Component {
             >
               {(geographies, projection) =>
                 geographies.map((geography, i) => (
-                  <Link href={`/state?state=${geography.properties.name}`}>
+                  <Link href={`/state?state=${geography.properties.name}`}
+                        key ={geography.properties.name}>
                     <a>
                   <Geography
-                    key={`${geography.properties.ADM0_A3}-${i}`}
                     cacheId={`path-${geography.properties.ADM0_A3}-${i}`}
                     round
                     name={geography.properties.name}
-                    key ={geography.properties.name}
                     geography={geography}
                     projection={projection}
                     style={{

@@ -2,9 +2,19 @@ import { withRouter } from 'next/router';
 
 
 const State = withRouter(props => (
-  <div>
+  <div className="State">
     <h1>{props.router.query.state}</h1>
-    <p>State PAGE.</p>
+    <div>
+      <p>State PAGE.</p>
+    </div>
+    <style jsx>{`
+        .State {
+          padding:1em;
+          box-sizing: inherit;
+          text-align:center;
+        }
+        `}
+      </style>
   </div>
 ));
 
