@@ -23,29 +23,35 @@ const getElementLength = async (SELECTOR)=>{
  */
 async function getFighterNamesByRegion(region) {
   let url =`https://www.tapology.com/regions/${region}`;
-  const browser = await puppeteer.launch();
-  const page = await browser.newPage();
-  page.on('error', err=> {
-    console.log('error happen at the page: ', err);
-  });
-  await page.goto(url);
-  const REGION_RANK_NAME ='#content > div.regionRankingsPreview > div.regionRankingPreviewFightersContainer > div:nth-child(INDEX) > div.regionRankingPreviewFighterName > a'
-  const LENGTH_SELECTOR_CLASS = 'regionRankingPreviewFighterName';
-  // get the total length of fighter names
-  let listLength = await page.evaluate((sel) => {
-    return document.getElementsByClassName(sel).length;
-  }, LENGTH_SELECTOR_CLASS);
-  let fighters=[];
-for (let i = 1; i <= listLength; i++) {
-    let fighterNameSelector = REGION_RANK_NAME.replace("INDEX", i);
-    let fighterName = await page.evaluate((sel) => {
-        return document.querySelector(sel).innerText;
-      }, fighterNameSelector);
-      fighters.push(fighterName);
-}
-  
- await browser.close();
-  return fighters;
+  try{
+    const browser = await puppeteer.launch();
+    const page = await browser.newPage();
+    page.on('error', err=> {
+      console.log('error happen at the page: ', err);
+    });
+    await page.goto(url,{waitUntil: 'domcontentloaded'});
+    const REGION_RANK_NAME ='#content > div.regionRankingsPreview > div.regionRankingPreviewFightersContainer > div:nth-child(INDEX) > div.regionRankingPreviewFighterName > a'
+    const LENGTH_SELECTOR_CLASS = 'regionRankingPreviewFighterName';
+    // get the total length of fighter names
+    let listLength = await page.evaluate((sel) => {
+      return document.getElementsByClassName(sel).length;
+    }, LENGTH_SELECTOR_CLASS);
+    let fighters=[];
+  for (let i = 1; i <= listLength; i++) {
+      let fighterNameSelector = REGION_RANK_NAME.replace("INDEX", i);
+      let fighterName = await page.evaluate((sel) => {
+          return document.querySelector(sel).innerText;
+        }, fighterNameSelector);
+        fighters.push(fighterName);
+  }
+    
+   await browser.close();
+    return fighters;
+  }
+  catch(e){
+    console.log(e);
+  }
+
 }
 
 
@@ -238,8 +244,9 @@ const getFighterNameFromHref=(href)=>{
 }
 
 
-
-
+module.exports={
+  getFighters:getFighterNamesByRegion
+}
 
 
 
