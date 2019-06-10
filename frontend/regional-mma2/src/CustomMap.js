@@ -1,20 +1,24 @@
 import React, { Component } from "react";
-import { feature } from "topojson-client";
-import JSONmap from "./static/us-albers.json";
 import axios from 'axios';
+import { feature } from "topojson-client";
+import Modal from './Modal';
+import JSONmap from "./static/us-albers.json";
+
 import {
   ComposableMap,
   ZoomableGroup,
   Geographies,
   Geography
 } from "react-simple-maps";
+import { relative } from "path";
 
 const wrapperStyles = {
   width: "100%",
   maxWidth: 480,
   margin: "0 auto",
   fontFamily: "Roboto, sans-serif",
-  backgroundColor: "#7fcdff" /*ocean blue */
+  backgroundColor: "#7fcdff", /*ocean blue */
+  position:'relative'
 };
 
 const selectedStyle={
@@ -85,6 +89,7 @@ class CustomMap extends Component {
   render() {
     return (
       <div style={wrapperStyles}>
+        {this.props.loading? <Modal/>:null}
         <ComposableMap
           projectionConfig={{
             scale: 1085,
@@ -113,7 +118,7 @@ class CustomMap extends Component {
                     geography={geography}
                     projection={projection}
                     onClick = {()=>this.props.clicked(geography.properties.name)}
-                    // style={this.state.selected ===geography.properties.name ? selectedStyle : nonSelectedStyle}
+                    style={this.props.selected ===geography.properties.name ? selectedStyle : nonSelectedStyle}
                   />
                 ))
               }

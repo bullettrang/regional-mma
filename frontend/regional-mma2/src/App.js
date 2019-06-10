@@ -232,6 +232,7 @@ class App extends React.Component {
     if(this.state.stateNames.hasOwnProperty(stateName)&&this.state.stateNames[stateName].fighters.length===0 )
       await this.getProspects(stateName);
     else{
+      console.log('no async processed');
       return
     }
   }
@@ -251,9 +252,7 @@ class App extends React.Component {
                                 ...this.state.stateNames[stateName],
                                 [stateName]:newObj
                                 
-        }},()=>{
-          //console.log(this.state.stateNames[stateName]);
-        });
+        }});
       }
       else{
         console.log('error ',response);
@@ -286,7 +285,7 @@ class App extends React.Component {
     return (
       <div className="App">
         <h1>MMA REGIONAL</h1>
-        <CustomMap clicked={this.selectHandler}/>
+        <CustomMap selected={this.state.selected} loading={this.state.loading}clicked={this.selectHandler}/>
         <FighterList loading={this.state.loading}/>
       </div>
     );
