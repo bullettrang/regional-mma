@@ -1,4 +1,3 @@
-
 const puppeteer = require('puppeteer');
 const REGIONS_URL = 'https://www.tapology.com/regions';
 const hawaiiURL= 'https://www.tapology.com/regions/hawaii';
@@ -206,6 +205,10 @@ async function getFighterDetails(name){
   })();
 }
 
+/**
+ * 
+ * HELPER FUNCTIONS
+ */
 
 /**
  * @function getFighterObject - helper function to convert array of fighter details into object with corresponding keys
@@ -216,7 +219,6 @@ const getFighterObject =(fighterData)=>{
   //TODO SEPERATE record into wins/losses/ties/NC
   const templateKeys = ['name','record','nickname','streak','age','bday','lastFightDate','company','weightClass','weight','team','height','reach','earnings','hometown','currentResidence'];
   return  _.zipObject(templateKeys,fighterData);
-  
 }
 
 /**
@@ -236,8 +238,6 @@ const getFighterNameFromHref=(href)=>{
 }
 
 
-//#searchSuggest
-getSuggestedSearchLinks('Da Un Jung');
 
 
 
