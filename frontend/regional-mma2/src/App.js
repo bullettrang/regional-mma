@@ -1,16 +1,16 @@
 import React from 'react';
 import axios from 'axios';
 import CustomMap from './CustomMap';
+import Table from './Table';
 import './App.css';
 
 
 const FighterList = (props)=>{
   return(
-    <div>
+    <div className="Content">
     <h1>TOP REGION FIGHTERS</h1>
-    <div>
-      {props.loading? <h2>Loading Fighters</h2>:null}
-    </div>
+      {props.loading? <h2>Loading Fighters</h2>:<Table fighters={props.fighters}/>}
+
   </div>
   )
 }
@@ -233,6 +233,7 @@ class App extends React.Component {
       await this.getProspects(stateName);
     else{
       console.log('no async processed');
+      this.setState({selected:stateName,loading:false});
       return
     }
   }
@@ -242,23 +243,21 @@ class App extends React.Component {
    */
   getProspects =async (stateName)=> {
     try {
-      const response = await axios.get(`/states/${stateName}`);
-      console.log(response);
-      if(response.status===200){
-        this.setState({loading:false});
-        const newObj = Object.assign({},{...this.state.stateNames[stateName]},{fighters:response.data});
-        console.log('newObj',newObj);
-        this.setState({stateNames: {...this.state.stateNames,
-                                ...this.state.stateNames[stateName],
-                                [stateName]:newObj
-                                
-        }});
+      const chosenState = this.state.stateNames[stateName];
+      if(chosenState.urlParam !==null){
+        const response = await axios.get(`/states/${chosenState.urlParam}`);
+        console.log(response);
+        if(response.status===200){
+          const newObj = Object.assign({},{...this.state.stateNames[stateName]},{fighters:response.data});
+          console.log('newObj',newObj);
+          this.setState({stateNames: {...this.state.stateNames,
+                                  ...this.state.stateNames[stateName],
+                                  [stateName]:newObj
+                                  
+          }});
+        }
       }
-      else{
-        console.log('error ',response);
         this.setState({loading:false});
-      }
-
     } catch (error) {
       console.error(error);
     }
@@ -282,11 +281,16 @@ class App extends React.Component {
 
 
   render(){
+    let chosenFighters=[];
+
+    if(this.state.selected !==null){
+      chosenFighters=this.state.stateNames[this.state.selected].fighters;
+    }
     return (
       <div className="App">
         <h1>MMA REGIONAL</h1>
         <CustomMap selected={this.state.selected} loading={this.state.loading}clicked={this.selectHandler}/>
-        <FighterList loading={this.state.loading}/>
+          <FighterList fighters={chosenFighters} loading={this.state.loading}/>
       </div>
     );
 
