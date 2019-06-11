@@ -1,4 +1,10 @@
-.table{
+.Prospects__Wrapper{
     margin:0 auto;
     text-align:center;
+}
+
+.Prospects__Content{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 1em;
 }

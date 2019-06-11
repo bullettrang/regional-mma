@@ -3,17 +3,22 @@ import './Table.css';
 
 const TableRow=(props)=>{
     return(
-        <tr><td>{props.name}</td></tr>
+        <div>
+            <span>{props.name}</span>
+            <span><img src={props.image}/></span>
+        </div>
     )
 }
 const Table=(props)=>{
     return(
-        <table className="table">
-            <thead><tr><th>Prospects</th></tr></thead>
-            <tbody>
-                {props.fighters.map(fighter=><TableRow name={fighter}/>)}
-            </tbody>
-        </table>
+        <div className="Prospects__Wrapper">
+            <div>
+                <h2>Prospects</h2>
+            </div>
+            <div className="Prospects__Content">
+                {props.fighters.map(fighter=><TableRow key={fighter.name} image={fighter.image} name={fighter.name}/>)}
+            </div>
+        </div>
     )
 }
 
