@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import Loader from 'react-loader-spinner'
 import CustomMap from './CustomMap';
 import Table from './Table';
 import './App.css';
@@ -9,7 +10,7 @@ const FighterList = (props)=>{
   return(
     <div className="Content">
     <h1>TOP REGION FIGHTERS</h1>
-      {props.loading? <h2>Loading Fighters</h2>:<Table fighters={props.fighters}/>}
+      {props.loading? <Loader type="ThreeDots" color="#somecolor" height={80} width={80} />:<Table fighters={props.fighters}/>}
 
   </div>
   )
