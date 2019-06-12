@@ -11,7 +11,6 @@ const FighterList = (props)=>{
     <div className="Content">
     <h1>TOP REGION FIGHTERS</h1>
       {props.loading? <Loader type="ThreeDots" color="#somecolor" height={80} width={80} />:<Table fighters={props.fighters}/>}
-
   </div>
   )
 }

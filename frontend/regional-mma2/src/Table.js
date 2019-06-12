@@ -5,7 +5,7 @@ const TableRow=(props)=>{
     return(
         <div>
             <span>{props.name}</span>
-            <span><img src={props.image}/></span>
+            <span><img alt={props.name} src={props.image}/></span>
         </div>
     )
 }
