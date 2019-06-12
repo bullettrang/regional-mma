@@ -182,11 +182,11 @@ class App extends React.Component {
         },
         'Oregon':{
           fighters:[],
-          urlParam:'pacfic-northwest'
+          urlParam:'pacific-northwest'
         },
         'Washington':{
           fighters:[],
-          urlParam:'pacfic-northwest'
+          urlParam:'pacific-northwest'
         },
         "Alaska":{
           fighters:[],
@@ -242,6 +242,7 @@ class App extends React.Component {
   }
 
   /**
+   * @function - getProspects - Performs an ASYNC GET request to retrieve fighters based on stateName
    * @param {string} - stateName - string of stateName clicked 
    */
   getProspects =async (stateName)=> {
