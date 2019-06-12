@@ -1,9 +1,10 @@
 import React from 'react';
+import Loader from 'react-loader-spinner'
 import './Modal.css';
 
 const Modal =(props)=>(    
     <div className="Modal__Wrapper">
-        <h1>Loading Prospects</h1>
+        <Loader type="ThreeDots" color="#somecolor" height={80} width={80} />
     </div>
 )
 

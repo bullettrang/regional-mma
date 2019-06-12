@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import Loader from 'react-loader-spinner'
 import CustomMap from './CustomMap';
 import Table from './Table';
 import './App.css';
@@ -9,8 +10,7 @@ const FighterList = (props)=>{
   return(
     <div className="Content">
     <h1>TOP REGION FIGHTERS</h1>
-      {props.loading? <h2>Loading Fighters</h2>:<Table fighters={props.fighters}/>}
-
+      {props.loading? <Loader type="ThreeDots" color="#somecolor" height={80} width={80} />:<Table fighters={props.fighters}/>}
   </div>
   )
 }
@@ -182,11 +182,11 @@ class App extends React.Component {
         },
         'Oregon':{
           fighters:[],
-          urlParam:'pacfic-northwest'
+          urlParam:'pacific-northwest'
         },
         'Washington':{
           fighters:[],
-          urlParam:'pacfic-northwest'
+          urlParam:'pacific-northwest'
         },
         "Alaska":{
           fighters:[],
@@ -242,6 +242,7 @@ class App extends React.Component {
   }
 
   /**
+   * @function - getProspects - Performs an ASYNC GET request to retrieve fighters based on stateName
    * @param {string} - stateName - string of stateName clicked 
    */
   getProspects =async (stateName)=> {
