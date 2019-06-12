@@ -18,8 +18,13 @@ const wrapperStyles = {
   margin: "0 auto",
   fontFamily: "Roboto, sans-serif",
   backgroundColor: "#7fcdff", /*ocean blue */
-  position:'relative'
-};
+  position:'relative',
+  // boxShadow: " 0px 2px 1px 2px rgba(0,0,0,.3),  0 4px 5px 5px rgba(0,0,0,.1)"
+  boxShadow: "rgba(0, 0, 0, 0.3) 3px 3px 2px 0px, rgba(0, 0, 0, 0.1) 0px 6px 8px 2px"
+}
+
+
+
 
 const selectedStyle={
   default: {

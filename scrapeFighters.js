@@ -23,6 +23,8 @@ const getElementLength = async (SELECTOR)=>{
  */
 async function getFighterNamesByRegion(region) {
   let url =`https://www.tapology.com/regions/${region}`;
+  const REGIONAL_RANK_A_SELECTOR =".regionRankingPreviewFightersContainer a";
+  const REGIONAL_RANK_IMG_SELECTOR = ".regionRankingPreviewFightersContainer img";
   try{
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
@@ -30,20 +32,23 @@ async function getFighterNamesByRegion(region) {
       console.log('error happen at the page: ', err);
     });
     await page.goto(url,{waitUntil: 'domcontentloaded'});
-    const REGION_RANK_NAME ='#content > div.regionRankingsPreview > div.regionRankingPreviewFightersContainer > div:nth-child(INDEX) > div.regionRankingPreviewFighterName > a'
-    const LENGTH_SELECTOR_CLASS = 'regionRankingPreviewFighterName';
-    // get the total length of fighter names
-    let listLength = await page.evaluate((sel) => {
-      return document.getElementsByClassName(sel).length;
-    }, LENGTH_SELECTOR_CLASS);
-    let fighters=[];
-  for (let i = 1; i <= listLength; i++) {
-      let fighterNameSelector = REGION_RANK_NAME.replace("INDEX", i);
-      let fighterName = await page.evaluate((sel) => {
-          return document.querySelector(sel).innerText;
-        }, fighterNameSelector);
-        fighters.push(fighterName);
-  }
+    const names = await page.$$eval(REGIONAL_RANK_A_SELECTOR,links => links.map(link => {
+      return link.innerText;
+    }));                //wait for element
+
+    const imageSrcs = await page.$$eval(REGIONAL_RANK_IMG_SELECTOR,imgs => imgs.map(img => img.src));
+
+    
+
+    const fighters = _.zipWith(names,imageSrcs,(name,img)=>{
+      const nameObj = Object.assign({},{name:name})
+      const imageObj = Object.assign({},{image:img})
+      return(
+        Object.assign({},nameObj,imageObj)
+      )
+    });
+    console.log(fighters);
+
     
    await browser.close();
     return fighters;

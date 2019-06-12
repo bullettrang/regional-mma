@@ -226,6 +226,9 @@ class App extends React.Component {
     }
   }
 
+  /**
+   * @function - selectHandler - sets selected state and queries for prospects
+   */
   selectHandler= async (stateName)=>{
     console.log(stateName)
     this.setState({selected:stateName,loading:true});
@@ -238,7 +241,7 @@ class App extends React.Component {
     }
   }
 
-    /**
+  /**
    * @param {string} - stateName - string of stateName clicked 
    */
   getProspects =async (stateName)=> {
@@ -248,6 +251,7 @@ class App extends React.Component {
         const response = await axios.get(`/states/${chosenState.urlParam}`);
         console.log(response);
         if(response.status===200){
+          console.log(response.data);
           const newObj = Object.assign({},{...this.state.stateNames[stateName]},{fighters:response.data});
           console.log('newObj',newObj);
           this.setState({stateNames: {...this.state.stateNames,
@@ -263,23 +267,6 @@ class App extends React.Component {
     }
   }
 
-  //   /**
-  //  * @param {string} - stateName - string of stateName clicked 
-  //  */
-  // getProspects =async (stateName)=> {
-  //   try {
-  //     const response = await axios.get(`/states/${stateName}`);
-  //     console.log(response);
-  //     if(response.status===200){
-  //       this.setState({loading:false})
-  //     }
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // }
-
-
-
   render(){
     let chosenFighters=[];
 
@@ -293,9 +280,7 @@ class App extends React.Component {
           <FighterList fighters={chosenFighters} loading={this.state.loading}/>
       </div>
     );
-
   }
-
 }
 
 export default App;
