@@ -17,10 +17,15 @@
     color:#334;
     border-bottom:1px solid #000;
 }
+
 .Prospect--Image{
     width:116px;
     height:auto;
    
+}
+
+.Prospect--Rank{
+    font-size:1.2rem;
 }
 
 .Prospect__Wrapper:hover{

@@ -185,7 +185,7 @@ class App extends React.Component {
         },
         "Delaware":{
           fighters:[],
-          urlParam:null
+          urlParam:'us-northeast'
         },
         "Wyoming":{
           fighters:[],
@@ -193,7 +193,11 @@ class App extends React.Component {
         },
         "Maryland":{
           fighters:[],
-          urlParam:null
+          urlParam:'us-northeast'
+        },
+        "Maine":{
+          fighters:[],
+          urlParam:'us-northeast'
         }
       },
       loading:false,
@@ -205,11 +209,12 @@ class App extends React.Component {
    * @function - selectHandler - sets selected state and queries for prospects
    */
   selectHandler= async (stateName)=>{
-    this.setState({selected:stateName,loading:true});
-    if(this.state.stateNames.hasOwnProperty(stateName)&&this.state.stateNames[stateName].fighters.length===0 )
+    
+    if(this.state.stateNames.hasOwnProperty(stateName)&&this.state.stateNames[stateName].fighters.length===0 ){
+      this.setState({selected:stateName,loading:true});
       await this.getProspects(stateName);
+  }
     else{
-      this.setState({selected:stateName,loading:false});
       return
     }
   }
