@@ -33,7 +33,10 @@ async function getFighterNamesByRegion(region) {
     });
     await page.goto(url,{waitUntil: 'domcontentloaded'});
     const names = await page.$$eval(REGIONAL_RANK_A_SELECTOR,links => links.map(link => {
-      return link.innerText;
+      return {
+                name:link.innerText,
+                href:link.href
+              }
     }));                //wait for element
 
     const imageSrcs = await page.$$eval(REGIONAL_RANK_IMG_SELECTOR,imgs => imgs.map(img => img.src));
@@ -41,7 +44,7 @@ async function getFighterNamesByRegion(region) {
     
 
     const fighters = _.zipWith(names,imageSrcs,(name,img)=>{
-      const nameObj = Object.assign({},{name:name})
+      const nameObj = Object.assign({},{name:name.name, href:name.href})
       const imageObj = Object.assign({},{image:img})
       return(
         Object.assign({},nameObj,imageObj)
