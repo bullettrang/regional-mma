@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import CustomMap from './CustomMap';
-import FighterList from './FighterList'
+import FighterList from './Components/FighterList/FighterList'
 import './App.css';
 
 

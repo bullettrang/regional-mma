@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { feature } from "topojson-client";
-import Modal from './Modal';
+import Modal from './Components/UI/Modal';
 import JSONmap from "./static/us-albers.json";
 
 import {
@@ -13,7 +13,6 @@ import { relative } from "path";
 
 const wrapperStyles = {
   width: "100%",
-  // maxWidth: 480,
   maxWidth: 960,
   margin: "0 auto",
   fontFamily: "Roboto, sans-serif",

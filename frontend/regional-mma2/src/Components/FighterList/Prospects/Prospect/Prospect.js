@@ -1,7 +1,5 @@
 import React from 'react';
-import './Prospect.css';
-
-const ProspectRow=(props)=>{
+const Prospect=(props)=>{
     return(
         // <div className="Prospect__Wrapper">
         //     <span>{props.name}</span>
@@ -11,15 +9,6 @@ const ProspectRow=(props)=>{
             <img  className="Prospect--Image" src={props.image} alt={props.name}/>
             <figcaption>{props.name}</figcaption>
         </figure>
-    )
-}
-const Prospect=(props)=>{
-    return(
-        <div className="Prospects__Wrapper">
-            <div className="Prospects__Content">
-                {props.fighters.map(fighter=><ProspectRow key={fighter.name} image={fighter.image} name={fighter.name}/>)}
-            </div>
-        </div>
     )
 }
 
