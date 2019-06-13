@@ -2,9 +2,9 @@ const express= require('express');
 const app = express();
 const mmaAPI = require('./scrapeFighters.js');
 app.use(express.json());       // to support JSON-encoded bodies
-app.get('/',(req,res)=>{
-    res.send({hi:'there'})
-})
+// app.get('/',(req,res)=>{
+//     res.send({hi:'there'})
+// })
 
 
 // Route path: /users/:userId/books/:bookId
