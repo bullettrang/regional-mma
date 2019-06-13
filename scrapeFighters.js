@@ -19,12 +19,11 @@ const getElementLength = async (SELECTOR)=>{
 /**
  * @function getFighterNamesByRegion
  * @param {string} region - string of region requested
- * @returns {array}  - returns array of regional fighter names strings 
+ * @returns {array}  - returns array of regional fighter names,image, href to fighter page, rank strings 
  */
 async function getFighterNamesByRegion(region) {
   let url =`https://www.tapology.com/regions/${region}`;
-  const REGIONAL_RANK_A_SELECTOR =".regionRankingPreviewFightersContainer a";
-  const REGIONAL_RANK_IMG_SELECTOR = ".regionRankingPreviewFightersContainer img";
+
   try{
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
@@ -32,24 +31,15 @@ async function getFighterNamesByRegion(region) {
       console.log('error happen at the page: ', err);
     });
     await page.goto(url,{waitUntil: 'domcontentloaded'});
-    const names = await page.$$eval(REGIONAL_RANK_A_SELECTOR,links => links.map(link => {
-      return {
-                name:link.innerText,
-                href:link.href
-              }
-    }));                //wait for element
-
-    const imageSrcs = await page.$$eval(REGIONAL_RANK_IMG_SELECTOR,imgs => imgs.map(img => img.src));
-
     
-
-    const fighters = _.zipWith(names,imageSrcs,(name,img)=>{
-      const nameObj = Object.assign({},{name:name.name, href:name.href})
-      const imageObj = Object.assign({},{image:img})
-      return(
-        Object.assign({},nameObj,imageObj)
-      )
-    });
+    const fighters =await page.$$eval("div.regionRankingPreviewFighter",rankElems=>rankElems.map(rankElem =>{
+      return{
+        rank: rankElem.querySelector(' span').innerText,
+        image: rankElem.querySelector(' img').src,
+        name: rankElem.querySelector(" a").innerText,
+        href:rankElem.querySelector(' a').href
+      }
+    }))
     console.log(fighters);
 
     

@@ -1,18 +1,32 @@
 .App {
   text-align: center;
-  display:grid;
-  grid-template-columns: 2fr 2fr;
-  
 }
 
-.Content{
-  margin: 0 auto;
+.Visual_UI{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  grid-auto-rows: 1fr;
+}
+.Fighter_Content{
+
   text-align: center;
   max-width:960px;
-
+  background-color:#DAE0E6;
+  border-bottom-right-radius: 5px;
+  padding:1em;
 }
 
-.Prospects_Section{
-  padding:0;
-  margin:0;
+.Map_Wrapper{
+  margin:1em;
 }
+
+.Preview_Section{
+  margin:1em;
+}
+
+.Preview_Content{
+  width:100%;
+  height:100%;
+  background-color:tomato;
+}
+
