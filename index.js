@@ -18,5 +18,17 @@ app.get('/states/:stateName/',  async (req, res)=> {
   console.log(listOfFighters);
     res.send(listOfFighters)
   })
+
+  if(process.env.NODE_ENV === 'production'){
+
+    //express will serve up our production assets
+    //like main.js file
+    app.use(express.static('frontend/regional-mma2/build'));        
+    //express will serve index.html if it doesn't recognize the route
+    const path =require('path');
+    app.get('*',(req,res)=>{
+        res.sendFile(path.resolve(__dirname,'frontend/regional-mma2','build','index.html'));
+    })
+}
 const PORT = process.env.port || 5000;
 app.listen(PORT);
