@@ -1,0 +1,10 @@
+.Prospect--Link{
+    text-decoration: none;
+    color: #c1320b;
+    border-bottom: 1px dotted #000;
+}
+
+.Prospect--Link:hover{
+    color:#334;
+    border-bottom:1px solid #000;
+}
