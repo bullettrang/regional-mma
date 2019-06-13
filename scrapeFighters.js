@@ -1,3 +1,4 @@
+
 const puppeteer = require('puppeteer');
 const REGIONS_URL = 'https://www.tapology.com/regions';
 const hawaiiURL= 'https://www.tapology.com/regions/hawaii';
@@ -23,43 +24,29 @@ const getElementLength = async (SELECTOR)=>{
  */
 async function getFighterNamesByRegion(region) {
   let url =`https://www.tapology.com/regions/${region}`;
-  const REGIONAL_RANK_A_SELECTOR =".regionRankingPreviewFightersContainer a";
-  const REGIONAL_RANK_IMG_SELECTOR = ".regionRankingPreviewFightersContainer img";
-  try{
-    const browser = await puppeteer.launch();
-    const page = await browser.newPage();
-    page.on('error', err=> {
-      console.log('error happen at the page: ', err);
-    });
-    await page.goto(url,{waitUntil: 'domcontentloaded'});
-    const names = await page.$$eval(REGIONAL_RANK_A_SELECTOR,links => links.map(link => {
-      return {
-                name:link.innerText,
-                href:link.href
-              }
-    }));                //wait for element
-
-    const imageSrcs = await page.$$eval(REGIONAL_RANK_IMG_SELECTOR,imgs => imgs.map(img => img.src));
-
-    
-
-    const fighters = _.zipWith(names,imageSrcs,(name,img)=>{
-      const nameObj = Object.assign({},{name:name.name, href:name.href})
-      const imageObj = Object.assign({},{image:img})
-      return(
-        Object.assign({},nameObj,imageObj)
-      )
-    });
-    console.log(fighters);
-
-    
-   await browser.close();
-    return fighters;
-  }
-  catch(e){
-    console.log(e);
-  }
-
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+  page.on('error', err=> {
+    console.log('error happen at the page: ', err);
+  });
+  await page.goto(url);
+  const REGION_RANK_NAME ='#content > div.regionRankingsPreview > div.regionRankingPreviewFightersContainer > div:nth-child(INDEX) > div.regionRankingPreviewFighterName > a'
+  const LENGTH_SELECTOR_CLASS = 'regionRankingPreviewFighterName';
+  // get the total length of fighter names
+  let listLength = await page.evaluate((sel) => {
+    return document.getElementsByClassName(sel).length;
+  }, LENGTH_SELECTOR_CLASS);
+  let fighters=[];
+for (let i = 1; i <= listLength; i++) {
+    let fighterNameSelector = REGION_RANK_NAME.replace("INDEX", i);
+    let fighterName = await page.evaluate((sel) => {
+        return document.querySelector(sel).innerText;
+      }, fighterNameSelector);
+      fighters.push(fighterName);
+}
+  
+ await browser.close();
+  return fighters;
 }
 
 
@@ -219,10 +206,6 @@ async function getFighterDetails(name){
   })();
 }
 
-/**
- * 
- * HELPER FUNCTIONS
- */
 
 /**
  * @function getFighterObject - helper function to convert array of fighter details into object with corresponding keys
@@ -233,6 +216,7 @@ const getFighterObject =(fighterData)=>{
   //TODO SEPERATE record into wins/losses/ties/NC
   const templateKeys = ['name','record','nickname','streak','age','bday','lastFightDate','company','weightClass','weight','team','height','reach','earnings','hometown','currentResidence'];
   return  _.zipObject(templateKeys,fighterData);
+  
 }
 
 /**
@@ -252,9 +236,10 @@ const getFighterNameFromHref=(href)=>{
 }
 
 
-module.exports={
-  getFighters:getFighterNamesByRegion
-}
+//#searchSuggest
+getSuggestedSearchLinks('Da Un Jung');
+
+
 
 
 
