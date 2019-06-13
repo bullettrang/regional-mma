@@ -1,14 +1,14 @@
 import React from 'react';
-// import Map from './Map';
-import CustomMap from '../src/CustomMap';
-import '../src/App';
+import '../src/App.css';
 
 function Home() {
   return (
-    <div className="App"> 
-      <p>HOME</p>
-      <style jsx>{`
-        .App{
+    <div className="Home"> 
+        <h1>Click a State</h1>
+        <p>State PAGE.</p>
+      <style jsx>
+      {`
+        .Home{
           padding:1em;
           box-sizing: inherit;
           text-align:center;

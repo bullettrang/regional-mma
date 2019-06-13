@@ -1,0 +1,19 @@
+.Prospects__Wrapper{
+    margin:0 auto;
+    text-align:center;
+}
+
+.Prospects__Content{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+
+}
+
+.Prospect__Wrapper{
+    border:1px solid black;
+}
+
+.Prospect--Image{
+    width:116px;
+    height:auto;
+}
