@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { feature } from "topojson-client";
-import Modal from './Components/UI/Modal';
-import JSONmap from "./static/us-albers.json";
+import Modal from '../UI/Modal';
+import JSONmap from "../../static/us-albers.json";
 
 import {
   ComposableMap,

@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import CustomMap from './CustomMap';
+import CustomMap from './Components/CustomMap/CustomMap';
 import FighterList from './Components/FighterList/FighterList'
 import './App.css';
 
