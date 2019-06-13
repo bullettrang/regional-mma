@@ -30,5 +30,5 @@ app.get('/api/states/:stateName/',  async (req, res)=> {
         res.sendFile(path.resolve(__dirname,'frontend/regional-mma2','build','index.html'));
     })
 }
-const PORT = process.env.port || 5000;
+const PORT = process.env.PORT || 5000;
 app.listen(PORT);
