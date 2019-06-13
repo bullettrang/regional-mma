@@ -5,22 +5,6 @@ import FighterList from './Components/FighterList/FighterList'
 import './App.css';
 
 
-
-
-//No links for :
-//Delaware, Maryland, Wyoming
-
-//shared link
-//Washington, Oregon
-
-//shared link
-//Missouri, Kansas
-
-//shared link
-//Massachusetts, New Hamphsire, Connecticut
-
-//shared link
-//North Dakota, South Dakota
 class App extends React.Component {
 
   constructor(props){
@@ -221,12 +205,10 @@ class App extends React.Component {
    * @function - selectHandler - sets selected state and queries for prospects
    */
   selectHandler= async (stateName)=>{
-    console.log(stateName)
     this.setState({selected:stateName,loading:true});
     if(this.state.stateNames.hasOwnProperty(stateName)&&this.state.stateNames[stateName].fighters.length===0 )
       await this.getProspects(stateName);
     else{
-      console.log('no async processed');
       this.setState({selected:stateName,loading:false});
       return
     }
@@ -248,8 +230,7 @@ class App extends React.Component {
           console.log('newObj',newObj);
           this.setState({stateNames: {...this.state.stateNames,   //go down a lvl
                                   ...this.state.stateNames[stateName],      //go down another lvl
-                                  [stateName]:newObj                  //update by stateName prop
-                                  
+                                  [stateName]:newObj                  //update by stateName prop         
           }});
         }
       }
@@ -267,11 +248,16 @@ class App extends React.Component {
     }
     return (
       <div className="App">
-        <section  className="Prospects_Section">
-          <FighterList selected={this.state.selected} fighters={chosenFighters} loading={this.state.loading}/>
-        </section>
-        <section className="Map_Section">
-          <CustomMap selected={this.state.selected} loading={this.state.loading}clicked={this.selectHandler}/>
+        <section  className="Visual_UI">
+            <FighterList selected={this.state.selected} fighters={chosenFighters} loading={this.state.loading}/>
+            <div className="Map_Wrapper">
+              <CustomMap selected={this.state.selected} loading={this.state.loading}clicked={this.selectHandler}/>
+            </div>
+          </section>
+        <section className="Preview_Section">
+          <div className="Preview__Content">
+            <h2>Preview section</h2>
+          </div>
         </section>
       </div>
     );

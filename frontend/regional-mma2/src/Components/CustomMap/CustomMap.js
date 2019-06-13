@@ -19,7 +19,8 @@ const wrapperStyles = {
   backgroundColor: "#7fcdff", /*ocean blue */
   position:'relative',
   boxShadow: "rgba(0, 0, 0, 0.3) 0px 2px 6px 0px, rgba(0, 0, 0, 0.1) 0px 6px 24px 0px",
-  borderRadius:'5px'
+  borderRadius:'5px',
+
 }
 
 
@@ -83,12 +84,6 @@ class CustomMap extends Component {
     ).features;
     this.setState({ geographyPaths: countries });
   }
-
-  // selectHandler= async (stateName)=>{
-  //   this.setState({selected:stateName,loading:true});
-  //   //await this.getProspects(stateName);
-  // }
-
 
   render() {
     return (
