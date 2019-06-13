@@ -20,6 +20,7 @@ const wrapperStyles = {
   backgroundColor: "#7fcdff", /*ocean blue */
   position:'relative',
   boxShadow: "rgba(0, 0, 0, 0.3) 0px 2px 6px 0px, rgba(0, 0, 0, 0.1) 0px 6px 24px 0px",
+  borderRadius:'5px'
 }
 
 
@@ -93,6 +94,7 @@ class CustomMap extends Component {
   render() {
     return (
       <div style={wrapperStyles}>
+        <h1>MMA REGIONAL</h1>
         {this.props.loading? <Modal/>:null}
         <ComposableMap
           projectionConfig={{
@@ -106,7 +108,7 @@ class CustomMap extends Component {
             height: "auto"
           }}
         >
-          <ZoomableGroup center={[-95, 36]} disablePanning>
+          <ZoomableGroup center={[-70, 25]} disablePanning>
             <Geographies
               geography={this.state.geographyPaths}
               disableOptimization

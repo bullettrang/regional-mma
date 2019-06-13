@@ -6,5 +6,14 @@
 .Prospects__Content{
     display:grid;
     grid-template-columns: 1fr 1fr;
-    grid-gap: 1em;
+
+}
+
+.Prospect__Wrapper{
+    border:1px solid black;
+}
+
+.Prospect--Image{
+    width:116px;
+    height:auto;
 }

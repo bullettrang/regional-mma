@@ -1,19 +1,10 @@
 import React from 'react';
 import axios from 'axios';
-import Loader from 'react-loader-spinner'
 import CustomMap from './CustomMap';
-import Table from './Table';
+import FighterList from './FighterList'
 import './App.css';
 
 
-const FighterList = (props)=>{
-  return(
-    <div className="Content">
-    <h1>TOP REGION FIGHTERS</h1>
-      {props.loading? <Loader type="ThreeDots" color="#somecolor" height={80} width={80} />:<Table fighters={props.fighters}/>}
-  </div>
-  )
-}
 
 
 //No links for :
@@ -276,9 +267,12 @@ class App extends React.Component {
     }
     return (
       <div className="App">
-        <h1>MMA REGIONAL</h1>
-        <CustomMap selected={this.state.selected} loading={this.state.loading}clicked={this.selectHandler}/>
-          <FighterList fighters={chosenFighters} loading={this.state.loading}/>
+        <section  className="Prospects_Section">
+          <FighterList selected={this.state.selected} fighters={chosenFighters} loading={this.state.loading}/>
+        </section>
+        <section className="Map_Section">
+          <CustomMap selected={this.state.selected} loading={this.state.loading}clicked={this.selectHandler}/>
+        </section>
       </div>
     );
   }
