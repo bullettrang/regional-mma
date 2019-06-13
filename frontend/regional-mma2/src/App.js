@@ -227,7 +227,7 @@ class App extends React.Component {
     try {
       const chosenState = this.state.stateNames[stateName];
       if(chosenState.urlParam !==null){
-        const response = await axios.get(`/states/${chosenState.urlParam}`);
+        const response = await axios.get(`/api/states/${chosenState.urlParam}`);
         console.log(response);
         if(response.status===200){
           console.log(response.data);

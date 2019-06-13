@@ -10,7 +10,7 @@ app.get('/',(req,res)=>{
 // Route path: /users/:userId/books/:bookId
 // Request URL: http://localhost:3000/users/34/books/8989
 // req.params: { "userId": "34", "bookId": "8989" }
-app.get('/states/:stateName/',  async (req, res)=> {
+app.get('api/states/:stateName/',  async (req, res)=> {
   
   const chosenState = req.params.stateName.toLowerCase();
   console.log(chosenState);
