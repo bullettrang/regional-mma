@@ -1,3 +1,12 @@
+.Prospect__Wrapper{
+    padding:1em;
+    border-radius:5px;
+    background-color:#F2F2F2;
+    box-shadow:0px 2px 4px rgba(0,0,0,.3);
+    transition:all .2s ease-in-out;
+}
+
+
 .Prospect--Link{
     text-decoration: none;
     color: #c1320b;
@@ -7,4 +16,13 @@
 .Prospect--Link:hover{
     color:#334;
     border-bottom:1px solid #000;
+}
+.Prospect--Image{
+    width:116px;
+    height:auto;
+   
+}
+
+.Prospect__Wrapper:hover{
+    transform:scale(1.1);
 }
