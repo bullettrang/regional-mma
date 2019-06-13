@@ -1,5 +1,4 @@
 import React from 'react';
-import Loader from 'react-loader-spinner'
 import './Modal.css';
 
 const Modal =(props)=>(    

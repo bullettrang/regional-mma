@@ -7,7 +7,7 @@ const Prospect=(props)=>{
         // </div>
         <figure className="Prospect__Wrapper">
             <img  className="Prospect--Image" src={props.image} alt={props.name}/>
-            <figcaption>{props.name}</figcaption>
+            <figcaption><a target="_blank" href={props.href}>{props.name}</a></figcaption>
         </figure>
     )
 }

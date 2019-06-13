@@ -246,9 +246,9 @@ class App extends React.Component {
           console.log(response.data);
           const newObj = Object.assign({},{...this.state.stateNames[stateName]},{fighters:response.data});
           console.log('newObj',newObj);
-          this.setState({stateNames: {...this.state.stateNames,
-                                  ...this.state.stateNames[stateName],
-                                  [stateName]:newObj
+          this.setState({stateNames: {...this.state.stateNames,   //go down a lvl
+                                  ...this.state.stateNames[stateName],      //go down another lvl
+                                  [stateName]:newObj                  //update by stateName prop
                                   
           }});
         }
