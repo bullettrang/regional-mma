@@ -25,7 +25,8 @@ async function getFighterNamesByRegion(region) {
   let url =`https://www.tapology.com/regions/${region}`;
 
   try{
-    const browser = await puppeteer.launch();
+    // const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({args: ['--no-sandbox', '--disable-setuid-sandbox']});   //for heroku
     const page = await browser.newPage();
     page.on('error', err=> {
       console.log('error happen at the page: ', err);
