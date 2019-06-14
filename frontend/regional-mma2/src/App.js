@@ -210,9 +210,13 @@ class App extends React.Component {
    */
   selectHandler= async (stateName)=>{
     
-    if(this.state.stateNames.hasOwnProperty(stateName)&&this.state.stateNames[stateName].fighters.length===0 ){
+    if(this.state.stateNames.hasOwnProperty(stateName)){
       this.setState({selected:stateName,loading:true});
-      await this.getProspects(stateName);
+      if(this.state.stateNames[stateName].fighters.length===0 )
+          await this.getProspects(stateName);
+      else{
+        this.setState({selected:stateName});
+      }
   }
     else{
       return

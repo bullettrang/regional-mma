@@ -26,7 +26,7 @@ async function getFighterNamesByRegion(region) {
 
   try{
     // const browser = await puppeteer.launch();
-    const browser = await puppeteer.launch({args: ['--no-sandbox', '--disable-setuid-sandbox']});   //for heroku
+    const browser = await puppeteer.launch({args: ['--no-sandbox', '--disable-setuid-sandbox']});   //for heroku https://timleland.com/headless-chrome-on-heroku/
     const page = await browser.newPage();
     page.on('error', err=> {
       console.log('error happen at the page: ', err);
