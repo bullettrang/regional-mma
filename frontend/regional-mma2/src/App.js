@@ -215,7 +215,7 @@ class App extends React.Component {
       if(this.state.stateNames[stateName].fighters.length===0 )
           await this.getProspects(stateName);
       else{
-        this.setState({selected:stateName});
+        this.setState({selected:stateName,loading:false});
       }
   }
     else{
