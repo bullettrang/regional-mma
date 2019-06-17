@@ -11,17 +11,17 @@ import {
 } from "react-simple-maps";
 import { relative } from "path";
 
-// const wrapperStyles = {
-//   width: "100%",
-//   maxWidth: 960,
-//   margin: "0 auto",
-//   fontFamily: "Roboto, sans-serif",
-//   backgroundColor: "#7fcdff", /*ocean blue */
-//   position:'relative',
-//   boxShadow: "rgba(0, 0, 0, 0.3) 0px 2px 6px 0px, rgba(0, 0, 0, 0.1) 0px 6px 24px 0px",
-//   borderRadius:'5px',
+const wrapperStyles = {
+  // width: "100%",
+  // maxWidth: 960,
+  // margin: "0 auto",
+  // fontFamily: "Roboto, sans-serif",
+  backgroundColor: "#7fcdff", /*ocean blue */
+  // position:'relative',
+  // boxShadow: "rgba(0, 0, 0, 0.3) 0px 2px 6px 0px, rgba(0, 0, 0, 0.1) 0px 6px 24px 0px",
+  // borderRadius:'5px',
 
-// }
+}
 
 
 
@@ -87,9 +87,9 @@ class CustomMap extends Component {
 
   render() {
     return (
-      // <div style={wrapperStyles}>
-        <div >
-        {/* <h1>MMA REGIONAL</h1> */}
+      <div style={wrapperStyles}>
+        
+        <h1>MMA REGIONAL</h1>
         {this.props.loading? <Modal/>:null}
         <ComposableMap
           projectionConfig={{
