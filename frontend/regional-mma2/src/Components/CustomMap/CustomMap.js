@@ -12,14 +12,14 @@ import {
 import { relative } from "path";
 
 const wrapperStyles = {
-  width: "100%",
-  maxWidth: 960,
-  margin: "0 auto",
-  fontFamily: "Roboto, sans-serif",
+  // width: "100%",
+  // maxWidth: 960,
+  // margin: "0 auto",
+  // fontFamily: "Roboto, sans-serif",
   backgroundColor: "#7fcdff", /*ocean blue */
-  position:'relative',
-  boxShadow: "rgba(0, 0, 0, 0.3) 0px 2px 6px 0px, rgba(0, 0, 0, 0.1) 0px 6px 24px 0px",
-  borderRadius:'5px',
+  // position:'relative',
+  // boxShadow: "rgba(0, 0, 0, 0.3) 0px 2px 6px 0px, rgba(0, 0, 0, 0.1) 0px 6px 24px 0px",
+  // borderRadius:'5px',
 
 }
 
@@ -88,21 +88,23 @@ class CustomMap extends Component {
   render() {
     return (
       <div style={wrapperStyles}>
+        
         <h1>MMA REGIONAL</h1>
         {this.props.loading? <Modal/>:null}
         <ComposableMap
           projectionConfig={{
-            scale: 1085,
+            scale: 1000,
             rotation: [0, 0, 0]
           }}
           width={980}
-          height={651}
+          height={551}
+          projection="albersUsa"
           style={{
             width: "100%",
             height: "auto"
           }}
         >
-          <ZoomableGroup center={[-70, 25]} disablePanning>
+          <ZoomableGroup  disablePanning>
             <Geographies
               geography={this.state.geographyPaths}
               disableOptimization
