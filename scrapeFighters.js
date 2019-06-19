@@ -50,7 +50,6 @@ async function getFighterNamesByRegion(region) {
   catch(e){
     console.log(e);
   }
-
 }
 
 
@@ -202,6 +201,30 @@ async function getFighterDetails(name){
                                                                             .filter(span =>{if(span.innerText==='in')return false; else return true;})
                                                                             .map(span=>span.innerText));                //wait for element
                                                                             console.log(getFighterObject(fighterData));
+    return fighterData;
+   await browser.close();                                                                            
+  }
+  catch(e){
+    console.log(e);
+  }
+  })();
+}
+
+
+async function getFighterDetailsViaLink(link){
+  
+  (async()=>{
+    const browser = await puppeteer.launch({
+      headless: true
+  });
+  try{
+    const page = await browser.newPage();                                                   //go to page and wait for dom to load
+    await page.goto(link,{waitUntil: 'domcontentloaded'});
+    const fighterData = await page.$$eval("#stats > ul > li >span",spans =>spans
+                                                                            .filter(span =>{if(span.innerText==='in')return false; else return true;})
+                                                                            .map(span=>span.innerText));                //wait for element
+                                                                            console.log(getFighterObject(fighterData));
+    return fighterData;
    await browser.close();                                                                            
   }
   catch(e){
@@ -242,6 +265,8 @@ const getFighterNameFromHref=(href)=>{
   return cleanString;
 }
 
+
+//getFighterDetailsViaLink("https://www.tapology.com/fightcenter/fighters/49516-manny-vazquez");
 
 module.exports={
   getFighters:getFighterNamesByRegion
