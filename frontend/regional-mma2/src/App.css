@@ -7,14 +7,7 @@
   grid-template-columns: 1fr 1fr;
   grid-auto-rows: 1fr;
 }
-.Fighter_Content{
 
-  text-align: center;
-  max-width:960px;
-  background-color:#DAE0E6;
-  border-bottom-right-radius: 5px;
-  padding:1em;
-}
 
 .Map_Wrapper{
   margin:1em;
@@ -29,7 +22,7 @@
   height:100%;
   background-color:tomato;
 }
-
+/*TODO: fix for iphone PLUS */
 @media (max-width:400px){
   .Visual_UI{
     display:grid;

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { feature } from "topojson-client";
+
 import Modal from '../UI/Modal';
 import JSONmap from "../../static/us-albers.json";
 
@@ -9,7 +10,6 @@ import {
   Geographies,
   Geography
 } from "react-simple-maps";
-import { relative } from "path";
 
 const wrapperStyles = {
   // width: "100%",
@@ -20,7 +20,9 @@ const wrapperStyles = {
   // position:'relative',
   // boxShadow: "rgba(0, 0, 0, 0.3) 0px 2px 6px 0px, rgba(0, 0, 0, 0.1) 0px 6px 24px 0px",
   // borderRadius:'5px',
-
+  // width: "100%",
+  // maxWidth: 980,
+  // margin: "0 auto",
 }
 
 
@@ -74,6 +76,7 @@ class CustomMap extends Component {
   }
   componentDidMount() {
     this.loadPaths();
+
   }
   loadPaths() {
     const world = JSONmap;
@@ -88,7 +91,6 @@ class CustomMap extends Component {
   render() {
     return (
       <div style={wrapperStyles}>
-        
         <h1>MMA REGIONAL</h1>
         {this.props.loading? <Modal/>:null}
         <ComposableMap
@@ -126,6 +128,7 @@ class CustomMap extends Component {
             </Geographies>
           </ZoomableGroup>
         </ComposableMap>
+
       </div>
     );
   }

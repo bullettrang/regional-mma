@@ -13,9 +13,7 @@ app.use(express.json());       // to support JSON-encoded bodies
 app.get('/api/states/:stateName/',  async (req, res)=> {
   
   const chosenState = req.params.stateName.toLowerCase();
-  console.log(chosenState);
   const listOfFighters=await mmaAPI.getFighters(chosenState);
-  console.log(listOfFighters);
     res.send(listOfFighters)
   })
 
