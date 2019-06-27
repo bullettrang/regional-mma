@@ -11,6 +11,7 @@
     display:grid;
     grid-template-columns: 1fr;
     /* padding: calc(2px + 1vmin);     */
+    margin: calc(2px + 5vmin);     
   }
   
 }
@@ -24,6 +25,7 @@
   .Visual_UI{
     display:grid;
     grid-template-columns: 1fr ;
+    margin: calc(2px + 5vmin);    
   }
 }
 
