@@ -232,11 +232,8 @@ class App extends React.Component {
       const chosenState = this.state.stateNames[stateName];
       if(chosenState.urlParam !==null){
         const response = await axios.get(`/api/states/${chosenState.urlParam}`);
-        console.log(response);
         if(response.status===200){
-          console.log(response.data);
           const newObj = Object.assign({},{...this.state.stateNames[stateName]},{fighters:response.data});
-          console.log('newObj',newObj);
           this.setState({stateNames: {...this.state.stateNames,   //go down a lvl
                                   ...this.state.stateNames[stateName],      //go down another lvl
                                   [stateName]:newObj                  //update by stateName prop         
@@ -258,14 +255,16 @@ class App extends React.Component {
     return (
       <div className="App">
         <section  className="Visual_UI">
-            <FighterList selected={this.state.selected} fighters={chosenFighters} loading={this.state.loading}/>
-            <div className="Map_Wrapper">
+        <div className="Map_Wrapper">
               <CustomMap selected={this.state.selected} loading={this.state.loading}clicked={this.selectHandler}/>
-            </div>
-          </section>
+        </div> 
+        <div className="FighterList_Wrapper">       
+            <FighterList selected={this.state.selected} fighters={chosenFighters} loading={this.state.loading}/>
+        </div>  
+          </section>        
         <section className="Preview_Section">
           <div className="Preview__Content">
-            <h2>Preview section</h2>
+            <h1>Preview section</h1>
           </div>
         </section>
       </div>

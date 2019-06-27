@@ -4,7 +4,7 @@ const Prospect=(props)=>{
     return(
         <figure className="Prospect__Wrapper">
             <img  className="Prospect--Image" src={props.image} alt={props.name}/>
-            <figcaption><a rel="noopener noreferrer" className="Prospect--Link"target="_blank" href={props.href}><span className="Prospect--Rank">{`${props.rank} `}</span>{props.name}</a></figcaption>
+            <figcaption><a rel="noopener noreferrer" className="Prospect--Link"target="_blank" href={props.href}><span className="Prospect--Rank">{`${props.rank} ${props.name}`}</span></a></figcaption>
         </figure>
     )
 }

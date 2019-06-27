@@ -12,11 +12,10 @@ import {
 } from "react-simple-maps";
 
 const wrapperStyles = {
-  backgroundColor: "#7fcdff", /*ocean blue */
+
+  padding: "calc(8px + 2vmin)",
+  
 }
-
-
-
 
 const selectedStyle={
   default: {
@@ -82,11 +81,10 @@ class CustomMap extends Component {
     return (
       <div style={wrapperStyles}>
         <h1>MMA REGIONAL</h1>
-        {this.props.loading? <Modal/>:null}
         <ComposableMap
           projectionConfig={{
             scale: 1000,
-            rotation: [0, 0, 0]
+            rotation: [0, 0, 0],
           }}
           width={980}
           height={551}
@@ -96,7 +94,7 @@ class CustomMap extends Component {
             height: "auto"
           }}
         >
-          <ZoomableGroup  disablePanning>
+          <ZoomableGroup>
             <Geographies
               geography={this.state.geographyPaths}
               disableOptimization
