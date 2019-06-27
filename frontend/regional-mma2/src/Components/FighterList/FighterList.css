@@ -1,4 +1,5 @@
-.Fighter_Content{
+@media(min-width:800px){
+  .Fighter_Content{
     text-align: center;
     background-color:#DAE0E6;
     border-bottom-right-radius: 5px;
@@ -7,5 +8,36 @@
   }
 
   .Fighter--Title{
-    padding: calc(3px + 2vmin);
+    padding: calc(5px + 2vmin);
   }
+}
+
+@media (max-width:400px){
+  .Fighter_Content{
+    text-align: center;
+    background-color:#DAE0E6;
+    border-bottom-right-radius: 5px;
+    /* padding:1em; */
+    padding: calc(10px + 3vmin);
+  }
+
+  .Fighter--Title{
+    padding: calc(5px + 2vmin);
+  }
+}
+
+@media (min-width: 320px) and (max-width: 959px) {
+  .Fighter--Title{
+    font-size: calc( 3.5rem + 16 * (100vw - 320px) / (960 - 320) );
+    /* For a negative slope, we have to invert the breakpoints */
+    line-height: calc( 120% + 3.2 * (100vw - 960px) / (320 - 960) );
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1600px) {
+  .Fighter--Title {
+    font-size: calc( 4.5rem + 16 * (100vw - 1024px) / (1600 - 1024) );
+    /* For a negative slope, we have to invert the breakpoints */
+    /* line-height: calc( 120% + 3.2 * (100vw - 1600px) / (1024 - 1600) ); */
+  }
+}

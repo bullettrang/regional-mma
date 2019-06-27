@@ -13,7 +13,7 @@ import {
 
 const wrapperStyles = {
 
-  padding: "calc(8px + 2vmin)",
+  // padding: "calc(8px + 2vmin)",
   
 }
 

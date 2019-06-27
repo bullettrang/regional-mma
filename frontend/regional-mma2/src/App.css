@@ -1,42 +1,29 @@
-.App {
-  text-align: center;
+
+/*Monitors*/
+@media(min-width:800px){
+  .App {
+    text-align: center;
+  }
+  
+  /* With that approach, there will always be a spacing of at least 10 pixels regardless of the screen size. 
+  But on large screens, the spacing will still be much larger than on tiny screens. */
+  .Visual_UI{
+    display:grid;
+    grid-template-columns: 1fr;
+    /* padding: calc(2px + 1vmin);     */
+  }
+  
 }
 
-
-/* With that approach, there will always be a spacing of at least 10 pixels regardless of the screen size. 
-But on large screens, the spacing will still be much larger than on tiny screens. */
-.Visual_UI{
-  display:grid;
-  grid-template-columns: 1fr;
-  grid-auto-rows: 1fr;
-  /* padding: calc(2px + 1vmin);     */
-}
-
-
-.Map_Wrapper{
-  /* margin:1em; */
-  margin:calc(2px + 2vmin);
-}
-
-.FighterList_Wrapper{
-  margin:calc(2px + 2vmin);
-}
-
-.Preview_Section{
-  margin:calc(2px + 2vmin);
-}
-
-.Preview_Content{
-  width:100%;
-  height:100%;
-  background-color:tomato;
-}
-/*TODO: fix for iphone PLUS */
+/* Iphone-X */
 @media (max-width:400px){
+  .App {
+    text-align: center;
+  }
+
   .Visual_UI{
     display:grid;
     grid-template-columns: 1fr ;
-    grid-auto-rows: 1fr;
   }
 }
 
@@ -47,7 +34,7 @@ You still need a fancy calculation to calculate the "middle" values between the 
 The calculations can vary in complexity, especially when trying to use relative units and accommodate user font scaling. */
 @media (min-width: 320px) and (max-width: 959px) {
   h1 {
-    font-size: calc( 1.5rem + 16 * (100vw - 320px) / (960 - 320) );
+    font-size: calc( 2.5rem + 16 * (100vw - 320px) / (960 - 320) );
     /* For a negative slope, we have to invert the breakpoints */
     line-height: calc( 120% + 3.2 * (100vw - 960px) / (320 - 960) );
   }

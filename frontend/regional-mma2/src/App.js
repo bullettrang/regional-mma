@@ -262,11 +262,11 @@ class App extends React.Component {
             <FighterList selected={this.state.selected} fighters={chosenFighters} loading={this.state.loading}/>
         </div>  
           </section>        
-        <section className="Preview_Section">
+        {/* <section className="Preview_Section">
           <div className="Preview__Content">
             <h1>Preview section</h1>
           </div>
-        </section>
+        </section> */}
       </div>
     );
   }

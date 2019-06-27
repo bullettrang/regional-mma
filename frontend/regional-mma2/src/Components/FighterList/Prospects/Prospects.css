@@ -1,21 +1,37 @@
-.Prospects__Wrapper{
-    margin:0 auto;
-    text-align:center;
-    margin:calc(5px + 2vmin);
+/*Monitors*/
+@media (min-width:800px){
+    .Prospects__Wrapper{
+        margin:0 auto;
+        text-align:center;
+        margin:calc(5px + 2vmin);
+    }
+    
+    .Prospects__Content{
+        display:grid;
+        justify-items: start;
+        margin:calc(2px + 2vmin);
+        justify-items: center;
+        grid-gap: 20px;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
 }
 
-.Prospects__Content{
-    display:grid;
-    /* grid-template-columns: repeat(4,1fr); */
-    /* grid-gap:1em; */
-    /* grid-template-rows:1fr 1fr auto; */
-    justify-items: start;
 
-    margin:calc(2px + 2vmin);
-    justify-items: center;
 
-    grid-gap: 20px;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+@media (max-width:400px){
+    .Prospects__Wrapper{
+        margin:0 auto;
+        text-align:center;
+        margin:calc(5px + 2vmin);
+    }
+    
+    .Prospects__Content{
+        display:grid;
+        justify-items: start;
+        margin:calc(2px + 2vmin);
+        justify-items: center;
+        grid-gap: 10px;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
 }
-
 
