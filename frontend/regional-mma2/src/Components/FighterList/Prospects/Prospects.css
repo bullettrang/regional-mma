@@ -4,6 +4,7 @@
         margin:0 auto;
         text-align:center;
         margin:calc(5px + 2vmin);
+        border-radius:20px;
     }
     
     .Prospects__Content{

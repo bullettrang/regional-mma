@@ -6,7 +6,8 @@
         background-color:#F2F2F2;
         box-shadow:0px 2px 4px rgba(0,0,0,.3);
         transition:all .2s ease-in-out;
-        margin-bottom: calc(1px + 3vmin);
+        margin-bottom: calc(1px + 2vmin);
+
     }
     
     
@@ -25,6 +26,11 @@
         width:116px;
         height:auto;
         margin-bottom: calc(1px + 1vmin);
+    }
+
+    .Prospect__Wrapper:hover{
+        transform:scale(1.1);
+        box-shadow:0px 4px 16px rgba(0,0,0,.1);
     }
 }
 /*iphone-X*/
@@ -63,6 +69,3 @@
     }
   }
 
-.Prospect__Wrapper:hover{
-    transform:scale(1.1);
-}
