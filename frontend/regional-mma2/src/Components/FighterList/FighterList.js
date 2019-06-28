@@ -1,8 +1,10 @@
 import React from 'react';
 import Loader from 'react-loader-spinner'
 import Prospects from './Prospects/Prospects';
+
 import './FighterList.css';
 const FighterList = (props)=>{
+
     return(
       <div className="Fighter_Content">
         <h1 className="Fighter--Title">Top {props.selected !==null ? props.selected: "Regional"} Fighters</h1>

@@ -2,7 +2,7 @@
   .Fighter_Content{
     text-align: center;
     background-color:#DAE0E6;
-    border-bottom-right-radius: 5px;
+    border-radius: 10px;
     /* padding:1em; */
     padding: calc(10px + 3vmin);
   }
@@ -16,8 +16,7 @@
   .Fighter_Content{
     text-align: center;
     background-color:#DAE0E6;
-    border-bottom-right-radius: 5px;
-    /* padding:1em; */
+    border-radius: 10px;
     padding: calc(10px + 3vmin);
   }
 

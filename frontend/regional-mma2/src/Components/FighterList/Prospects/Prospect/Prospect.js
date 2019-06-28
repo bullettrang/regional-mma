@@ -1,5 +1,8 @@
 import React from 'react';
 import './Prospect.css';
+
+
+
 const Prospect=(props)=>{
     return(
         <figure className="Prospect__Wrapper">

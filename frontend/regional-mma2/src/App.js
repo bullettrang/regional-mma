@@ -247,6 +247,8 @@ class App extends React.Component {
   }
 
   render(){
+   
+    
     let chosenFighters=[];
 
     if(this.state.selected !==null){

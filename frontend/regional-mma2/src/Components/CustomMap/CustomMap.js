@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { feature } from "topojson-client";
 import JSONmap from "../../static/us-albers.json";
-
+import MapTitle from './MapTitle';
 import {
   ComposableMap,
   ZoomableGroup,
@@ -76,9 +76,10 @@ class CustomMap extends Component {
   }
 
   render() {
+    
     return (
       <div style={wrapperStyles}>
-        <h1>MMA REGIONAL</h1>
+        <MapTitle/>
         <ComposableMap
           projectionConfig={{
             scale: 1000,
